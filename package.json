@@ -1,0 +1,8 @@
+{
+  "name": "@exchanger/root",
+  "author": "Jakub Mach <j.mach@budmore.pl>",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}

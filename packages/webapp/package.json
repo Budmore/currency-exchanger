@@ -1,0 +1,16 @@
+{
+  "name": "@exchanger/webapp",
+  "version": "1.0.0",
+  "description": "Exchanger webapp",
+  "main": "src/index.tsx",
+  "private": true,
+  "scripts": {
+    "start": "",
+    "test": ""
+  },
+  "author": "Jakub Mach <j.mach@budmore.pl>",
+  "license": "MIT",
+  "dependencies": {
+    "@exchanger/components": "*"
+  }
+}
