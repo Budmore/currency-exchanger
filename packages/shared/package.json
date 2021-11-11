@@ -1,0 +1,19 @@
+{
+  "name": "@exchanger/shared",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "tsc -w",
+    "build": "tsc",
+    "lint": "tsc --noEmit",
+    "precommit": "yarn lint"
+  },
+  "dependencies": {
+    "react": "^17.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.34",
+    "typescript": "^4.4.4"
+  }
+}

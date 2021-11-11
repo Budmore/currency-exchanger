@@ -3,9 +3,14 @@
   "compilerOptions": {
     "declaration": true,
     "declarationMap": true,
-    "baseUrl": ".",
+    "sourceMap": true,
+    "strict": true,
+    "baseUrl": "./",
+    "rootDir": "./",
     "paths": {
-      "@toggle/*": ["packages/*/src"]
+      "@exchanger/*": ["packages/*/src"]
     }
-  }
+  },
+  "files": [],
+  "references": [{ "path": "packages/shared" }, { "path": "packages/webapp" }]
 }
