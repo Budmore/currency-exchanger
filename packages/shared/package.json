@@ -7,6 +7,7 @@
     "start": "tsc -w",
     "build": "tsc",
     "lint": "tsc --noEmit",
+    "prepare": "tsc",
     "precommit": "yarn lint"
   },
   "dependencies": {

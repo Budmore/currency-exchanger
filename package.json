@@ -6,6 +6,8 @@
     "packages/*"
   ],
   "scripts": {
+    "start": "lerna run start",
+    "test": "lerna run test --since master",
     "prepare": "husky install"
   },
   "dependencies": {

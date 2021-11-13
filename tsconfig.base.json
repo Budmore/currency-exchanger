@@ -5,7 +5,7 @@
     "declarationMap": true,
     "sourceMap": true,
     "strict": true,
-    "baseUrl": "./",
+    "baseUrl": "./packages",
     "rootDir": "./",
     "paths": {
       "@exchanger/*": ["packages/*/src"]
