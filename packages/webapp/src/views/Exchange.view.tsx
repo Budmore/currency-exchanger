@@ -1,5 +1,6 @@
 import { InputExchange } from '@exchanger/shared';
 import { useState } from 'react';
+import { useDirection } from '../hooks/use-direction/useDirection';
 import { MainLayout } from '../layouts/Main.layout';
 import { exchange } from '../services/exchange/exchange.service';
 import {
@@ -7,64 +8,83 @@ import {
     CurrencyISOType,
     formatPriceWithCurrency,
 } from '../utils/currency/currency.util';
-import {
-    Direction,
-    DirectionType,
-    reverseDirection,
-} from '../utils/direction/direction.util';
+import { willExceedBalance } from '../utils/direction/direction.util';
 
-export const ExchangeView = ({ initialDirection = Direction.Out }) => {
-    const wallets: CurrencyISO[] = [CurrencyISO.GBP, CurrencyISO.USD];
-    const [currency0, currency1] = wallets;
-    const [direction, setDirection] = useState(initialDirection);
-    const directionReversed = reverseDirection(direction);
+interface UserWallet {
+    currency: CurrencyISOType;
+    balance: number;
+}
+
+export const ExchangeView = () => {
+    const wallets: UserWallet[] = [
+        {
+            currency: CurrencyISO.GBP,
+            balance: 1000,
+        },
+        {
+            currency: CurrencyISO.USD,
+            balance: 0,
+        },
+    ];
+    const [walletFirst, walletSecond] = wallets;
+    const { direction, directionReversed, isDirectionOut, toggleDirection } =
+        useDirection();
+
     const ratio = 1.3971;
-
     const isValid = false;
 
     const [values, setValues] = useState({
-        [currency0]: 0,
-        [currency1]: 0,
+        [walletFirst.currency]: {
+            value: 0,
+            hasError: false,
+        },
+        [walletSecond.currency]: {
+            value: 0,
+            hasError: false,
+        },
     });
 
-    const willExceedBalance = (
-        balance: number,
-        value: number,
-        direction: DirectionType
-    ) => direction === Direction.Out && balance - value < 0;
+    const onChange = (userWallet: UserWallet) => (value: number) => {
+        const [otherWallet] = wallets.filter(
+            wallet => wallet.currency !== userWallet.currency
+        );
 
-    const toggleDirection = () => {
-        setDirection(directionReversed);
-    };
-
-    const onChange = (currency: CurrencyISOType) => (value: number) => {
-        const [otherCurrency] = wallets.filter(wallet => wallet !== currency);
+        const valueExchanged = exchange(value, ratio);
 
         setValues({
-            [currency]: value,
-            [otherCurrency]: exchange(value, ratio),
+            [userWallet.currency]: {
+                value: value,
+                hasError: false,
+            },
+            [otherWallet.currency]: {
+                value: valueExchanged,
+                hasError: false,
+            },
         });
     };
 
     return (
         <MainLayout>
             <h1 data-testid="title">
-                {direction === Direction.Out ? 'Sell' : 'Buy'} {currency0}
+                {isDirectionOut ? 'Sell' : 'Buy'} {walletFirst.currency}
             </h1>
 
             <p>Ratio: {ratio}</p>
 
             <InputExchange
-                currency={currency0}
-                value={values[currency0]}
-                balance={formatPriceWithCurrency(3396.42, currency0)}
                 direction={direction}
-                onChange={onChange(currency0)}
-                hasError={willExceedBalance(
-                    3396.42,
-                    values[currency0],
-                    direction
+                value={values[walletFirst.currency].value}
+                hasError={willExceedBalance({
+                    direction,
+                    value: values[walletFirst.currency].value,
+                    balance: walletFirst.balance,
+                })}
+                currency={walletFirst.currency}
+                balance={formatPriceWithCurrency(
+                    walletFirst.balance,
+                    walletFirst.currency
                 )}
+                onChange={onChange(walletFirst)}
             />
 
             <button type="button" onClick={toggleDirection}>
@@ -72,16 +92,19 @@ export const ExchangeView = ({ initialDirection = Direction.Out }) => {
             </button>
 
             <InputExchange
-                currency={currency1}
-                value={values[currency1]}
-                balance={formatPriceWithCurrency(0, currency1)}
                 direction={directionReversed}
-                onChange={onChange(currency1)}
-                hasError={willExceedBalance(
-                    0,
-                    values[currency1],
-                    directionReversed
+                value={values[walletSecond.currency].value}
+                hasError={willExceedBalance({
+                    direction: directionReversed,
+                    value: values[walletSecond.currency].value,
+                    balance: walletSecond.balance,
+                })}
+                currency={walletSecond.currency}
+                balance={formatPriceWithCurrency(
+                    walletSecond.balance,
+                    walletSecond.currency
                 )}
+                onChange={onChange(walletSecond)}
             />
 
             <br />

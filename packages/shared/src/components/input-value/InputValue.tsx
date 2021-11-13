@@ -7,10 +7,6 @@ interface InputValueProps {
     onChange: (value: number) => void;
 }
 
-// @TODO
-// - Emulate caret position
-// - Add unit tests
-
 export const InputValue: React.FunctionComponent<InputValueProps> = ({
     value = 0,
     direction,
