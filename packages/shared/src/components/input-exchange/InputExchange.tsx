@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { InputValue } from '../input-value/InputValue';
 
 interface InputExchangeProps {
-    balance: number;
+    balance: string;
     value?: number;
     currency: string;
     direction: 'In' | 'Out';
@@ -25,7 +25,9 @@ export const InputExchange: React.FunctionComponent<InputExchangeProps> = ({
                 <Currency>
                     <CurrencySelector>{currency}</CurrencySelector>
                 </Currency>
-                <Balance>Balance: {balance}</Balance>
+                <Balance>
+                    <HelpText>Balance: {balance}</HelpText>
+                </Balance>
                 <Value>
                     <InputValue
                         value={value}
@@ -33,9 +35,9 @@ export const InputExchange: React.FunctionComponent<InputExchangeProps> = ({
                         onChange={onChange}
                     />
                 </Value>
-                <HelpText>
+                <Helper>
                     {hasError && <ErrorText>exceeds balance</ErrorText>}
-                </HelpText>
+                </Helper>
             </InputExchangeGrid>
         </InputExchangeRoot>
     );
@@ -52,7 +54,7 @@ const InputExchangeGrid = styled.div`
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
         'currency value'
-        'balance help-text';
+        'balance helper';
 `;
 
 const Currency = styled.div`
@@ -61,16 +63,25 @@ const Currency = styled.div`
 const Balance = styled.div`
     grid-area: balance;
 `;
+
 const Value = styled.div`
     grid-area: value;
     text-align: right;
 `;
-const HelpText = styled.div`
-    grid-area: help-text;
+
+const HelpText = styled.span`
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: ${props => props.theme.colors.default.secondaryText};
+`;
+
+const Helper = styled(HelpText)`
+    grid-area: helper;
     text-align: right;
 `;
 
-const ErrorText = styled.span`
+const ErrorText = styled(HelpText)`
     color: ${props => props.theme.status.critical};
 `;
 

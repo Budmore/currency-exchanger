@@ -11,7 +11,7 @@
     "format": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "typecheck": "tsc --noEmit",
     "test": "jest --env=jsdom",
-    "test:tdd": "jes --env=jsdom --watch",
+    "test:tdd": "jest --env=jsdom --watch",
     "precommit": "yarn lint-staged"
   },
   "author": "Jakub Mach <j.mach@budmore.pl>",

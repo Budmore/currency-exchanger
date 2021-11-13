@@ -1,8 +1,20 @@
 # The Plan
 
-- Add eslint
-- Add i18n
-- Add storybook
+- Currency Selector
+- User Store
+  - Unit test
+  - Language
+  - Initial balance
+- Forex request https://docs.openexchangerates.org/docs/convert
+- Toggle Direction icon
+- RWD
+- Success Message
+- Ratio component
+- Add Jest @exchanger/shared
+
+- Add eslint @exchanger/shared @exchanger/webapp
+- Add i18n @exchanger/shared @exchanger/webapp
+- Add storybook @exchanger/shared
 - Setup simple API with JSON server
 
 ## Layout

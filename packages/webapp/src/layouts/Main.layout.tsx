@@ -5,7 +5,7 @@ import styled from 'styled-components';
 export const MainLayout: FC = ({ children }) => (
     <LayoutRoot>
         <Header>
-            <a href='/' aria-label='Go to the main page'>
+            <a href="/" aria-label="Go to the main page">
                 <Logo />
             </a>
         </Header>

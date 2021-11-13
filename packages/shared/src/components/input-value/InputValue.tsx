@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface InputValueProps {
-    value: number;
+    value?: number;
     direction: 'In' | 'Out';
     onChange: (value: number) => void;
 }
@@ -16,7 +16,7 @@ export const InputValue: React.FunctionComponent<InputValueProps> = ({
     direction,
     onChange,
 }) => {
-    const prefix = direction === 'In' ? '+' : '-';
+    const prefix = !!value && (direction === 'In' ? '+' : '-');
 
     const changeHandler = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
         const value = +target.value;
@@ -27,8 +27,8 @@ export const InputValue: React.FunctionComponent<InputValueProps> = ({
     return (
         <InputValueRoot>
             <Value>
-                {!!value && <span>{prefix}</span>}
-                <span>{value}</span>
+                {prefix}
+                {value}
             </Value>
             <InputHidden
                 type="number"

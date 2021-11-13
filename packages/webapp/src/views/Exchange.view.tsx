@@ -1,7 +1,12 @@
-import { CurrencyISO, CurrencyISOType, InputExchange } from '@exchanger/shared';
+import { InputExchange } from '@exchanger/shared';
 import { useState } from 'react';
-import { MainLayout } from '../layouts/MainLayout';
+import { MainLayout } from '../layouts/Main.layout';
 import { exchange } from '../services/exchange/exchange.service';
+import {
+    CurrencyISO,
+    CurrencyISOType,
+    formatPriceWithCurrency,
+} from '../utils/currency/currency.util';
 import {
     Direction,
     DirectionType,
@@ -10,7 +15,7 @@ import {
 
 export const ExchangeView = ({ initialDirection = Direction.Out }) => {
     const wallets: CurrencyISO[] = [CurrencyISO.GBP, CurrencyISO.USD];
-    const [wallet0, wallet1] = wallets;
+    const [currency0, currency1] = wallets;
     const [direction, setDirection] = useState(initialDirection);
     const directionReversed = reverseDirection(direction);
     const ratio = 1.3971;
@@ -18,8 +23,8 @@ export const ExchangeView = ({ initialDirection = Direction.Out }) => {
     const isValid = false;
 
     const [values, setValues] = useState({
-        [wallet0]: 0,
-        [wallet1]: 0,
+        [currency0]: 0,
+        [currency1]: 0,
     });
 
     const willExceedBalance = (
@@ -44,20 +49,20 @@ export const ExchangeView = ({ initialDirection = Direction.Out }) => {
     return (
         <MainLayout>
             <h1 data-testid="title">
-                {direction === Direction.Out ? 'Sell' : 'Buy'} {wallet0}
+                {direction === Direction.Out ? 'Sell' : 'Buy'} {currency0}
             </h1>
 
             <p>Ratio: {ratio}</p>
 
             <InputExchange
-                currency={wallet0}
-                value={values[wallet0]}
-                balance={3396.42}
+                currency={currency0}
+                value={values[currency0]}
+                balance={formatPriceWithCurrency(3396.42, currency0)}
                 direction={direction}
-                onChange={onChange(wallet0)}
+                onChange={onChange(currency0)}
                 hasError={willExceedBalance(
                     3396.42,
-                    values[wallet0],
+                    values[currency0],
                     direction
                 )}
             />
@@ -67,20 +72,20 @@ export const ExchangeView = ({ initialDirection = Direction.Out }) => {
             </button>
 
             <InputExchange
-                currency={wallet1}
-                value={values[wallet1]}
-                balance={19.42}
+                currency={currency1}
+                value={values[currency1]}
+                balance={formatPriceWithCurrency(0, currency1)}
                 direction={directionReversed}
-                onChange={onChange(wallet1)}
+                onChange={onChange(currency1)}
                 hasError={willExceedBalance(
-                    19.42,
-                    values[wallet1],
+                    0,
+                    values[currency1],
                     directionReversed
                 )}
             />
 
             <br />
-            <button disabled={isValid}>Exchange</button>
+            <button disabled={!isValid}>Exchange</button>
         </MainLayout>
     );
 };

@@ -7,6 +7,8 @@
     "start": "tsc -w",
     "build": "tsc",
     "lint": "tsc --noEmit",
+    "test": "echo \"No tests\" && exit 0",
+    "test:tdd": "echo \"No tests\" && exit 0",
     "prepare": "tsc",
     "precommit": "yarn lint"
   },

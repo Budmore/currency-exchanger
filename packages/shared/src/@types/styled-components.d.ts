@@ -15,10 +15,10 @@ declare module 'styled-components' {
     type ObjectType = Record<string, string | number>;
 
     interface ColorSet {
-        textColor?: string;
+        primaryText?: string;
+        secondaryText?: string;
         bgColor?: string;
         accent?: string;
-        separator?: string;
     }
 
     interface Status {

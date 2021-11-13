@@ -3,7 +3,7 @@ import { DefaultTheme } from 'styled-components';
 const colors = {
     white: '#fff',
     black: '#000',
-    batmanShadow: '#525c66',
+    grey: '#888',
     blue: '#0666eb',
     purple: '#5e2d9c',
 
@@ -15,16 +15,17 @@ const colors = {
 export const defaultTheme: DefaultTheme = {
     colors: {
         brand: {
-            textColor: colors.white,
+            primaryText: colors.white,
+            secondaryText: colors.white,
             bgColor: colors.blue,
             accent: colors.purple,
         },
 
         default: {
-            textColor: colors.black,
+            primaryText: colors.black,
+            secondaryText: colors.grey,
             bgColor: colors.white,
             accent: colors.blue,
-            separator: colors.batmanShadow,
         },
     },
 

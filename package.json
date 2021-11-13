@@ -8,6 +8,7 @@
   "scripts": {
     "start": "lerna run start --parallel",
     "test": "lerna run test --since master",
+    "test:tdd": "yarn workspace @exchanger/webapp test:tdd",
     "prepare": "husky install"
   },
   "dependencies": {
