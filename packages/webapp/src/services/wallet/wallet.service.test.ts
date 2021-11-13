@@ -1,6 +1,6 @@
 import { createWallet } from './wallet.service';
 
-describe('Wallet service', () => {
+describe('wallet.service.ts', () => {
     describe('add()', () => {
         it('should NOT add a value', () => {
             // GIVEN

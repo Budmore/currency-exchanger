@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const Header: FC = ({ children }) => {
     return (
-        <HeaderRoot role='banner'>
+        <HeaderRoot role="banner">
             <HeaderContent>{children}</HeaderContent>
         </HeaderRoot>
     );
@@ -14,7 +14,7 @@ const HeaderRoot = styled.header`
     top: 0;
     z-index: ${props => props.theme.zIndexes.navigationBar};
     height: 80px;
-    border-bottom: 1px solid ${props => props.theme.colors.default.separator};
+    border-bottom: 1px solid ${props => props.theme.colors.brand.bgColor};
     background-color: ${props => props.theme.colors.default.bgColor};
     width: 100%;
 `;

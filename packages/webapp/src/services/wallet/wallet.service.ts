@@ -1,5 +1,8 @@
+import { CurrencyISOType } from '@exchanger/shared';
+
 interface WalletServiceProps {
     balance?: number;
+    currency: CurrencyISOType;
 }
 
 export function createWallet({ balance = 0 }: WalletServiceProps) {

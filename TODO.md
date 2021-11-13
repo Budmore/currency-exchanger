@@ -1,8 +1,9 @@
 # The Plan
 
-- Add translate
-- setup API with JSON server
-- Create user with uni
+- Add eslint
+- Add i18n
+- Add storybook
+- Setup simple API with JSON server
 
 ## Layout
 

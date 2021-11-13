@@ -1,6 +1,6 @@
 import { exchange } from './exchange.service';
 
-describe('exchange.ts', () => {
+describe('exchange.service.ts', () => {
     it('should exchange value by factor', () => {
         // GIVEN
         const inputValue = 100;
