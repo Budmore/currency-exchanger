@@ -1,13 +1,15 @@
-import React from 'react';
+import { Header, Logo } from '@exchanger/shared';
+import { FC } from 'react';
 import styled from 'styled-components';
 
-interface MainLayoutProps {
-    children: React.ReactNode;
-}
-
-export const MainLayout = (props: MainLayoutProps) => (
+export const MainLayout: FC = ({ children }) => (
     <LayoutRoot>
-        <LayoutContent>{props.children}</LayoutContent>
+        <Header>
+            <a href='/' aria-label='Go to the main page'>
+                <Logo />
+            </a>
+        </Header>
+        <LayoutContent>{children}</LayoutContent>
     </LayoutRoot>
 );
 
@@ -19,5 +21,6 @@ const LayoutRoot = styled.div`
 `;
 const LayoutContent = styled.div`
     width: 100%;
+    max-width: ${props => props.theme.layout.maxWidth};
     padding: 0 16px;
 `;
