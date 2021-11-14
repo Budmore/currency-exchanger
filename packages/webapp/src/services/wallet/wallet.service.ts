@@ -1,8 +1,12 @@
-interface WalletServiceProps {
-    balance?: number;
+import { subtraction, sum } from '../../utils/math/math.util';
+
+export interface Wallet {
+    add(value: number): void;
+    subtract(value: number): void;
+    getBalance(): number;
 }
 
-export function createWallet({ balance = 0 }: WalletServiceProps) {
+export function createWallet({ balance = 0 }): Wallet {
     const data = {
         history: [balance],
         balance,
@@ -10,15 +14,17 @@ export function createWallet({ balance = 0 }: WalletServiceProps) {
 
     const add = (value: number) => {
         if (value > 0) {
-            data.balance += value;
-            data.history.push(value);
+            const nextBalance = sum(data.balance, value);
+            data.balance = nextBalance;
+            data.history.push(nextBalance);
         }
     };
 
     const subtract = (value: number) => {
         if (value > 0) {
-            data.balance -= value;
-            data.history.push(-value);
+            const nextBalance = subtraction(data.balance, value);
+            data.balance = nextBalance;
+            data.history.push(-nextBalance);
         }
     };
 
