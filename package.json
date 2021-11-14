@@ -7,12 +7,14 @@
   ],
   "scripts": {
     "start": "lerna run start --parallel",
-    "test": "lerna run test --since master",
+    "test": "lerna run test --parallel",
+    "test:since": "lerna run test --since master",
     "test:tdd": "yarn workspace @exchanger/webapp test:tdd",
+    "precommit": "lerna run precommit --since master",
     "prepare": "husky install"
   },
   "dependencies": {
-    "husky": "^6.0.0",
+    "husky": "^7.0.0",
     "lerna": "^4.0.0"
   }
 }
