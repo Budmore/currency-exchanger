@@ -1,22 +1,39 @@
 import create from 'zustand';
+import createVanilla from 'zustand/vanilla';
+import { fetchVault } from '../../services/vault/vault.service';
 import { createWallet, Wallet } from '../../services/wallet/wallet.service';
 import {
     CurrencyISOType,
     formatPriceWithCurrency,
 } from '../../utils/currency/currency.util';
+import { logError } from '../../utils/logger/logger.util';
 
-type VaultStore = {
+interface VaultStore {
     wallets: Partial<Record<CurrencyISOType, Wallet>>;
+    init: () => void;
     getWallet: (currency: CurrencyISOType) => Wallet | undefined;
     getBalance: (currency: CurrencyISOType) => number | undefined;
     getBalanceFormatted: (currency: CurrencyISOType) => string | undefined;
     createWallet: (currency: CurrencyISOType, balance?: number) => void;
     add: (currency: CurrencyISOType, value: number) => void;
     subtract: (currency: CurrencyISOType, value: number) => void;
-};
+}
 
-export const useVaultStore = create<VaultStore>((set, get) => ({
+export const vaultStore = createVanilla<VaultStore>((set, get) => ({
     wallets: {},
+
+    init: async () => {
+        try {
+            const response = await fetchVault();
+            const { createWallet } = get();
+
+            response.data.forEach(({ balance, currency }) => {
+                createWallet(currency, balance);
+            });
+        } catch (error) {
+            logError(error);
+        }
+    },
 
     getWallet: currency => {
         const { wallets } = get();
@@ -73,3 +90,5 @@ export const useVaultStore = create<VaultStore>((set, get) => ({
         }
     },
 }));
+
+export const useVaultStore = create(vaultStore);
