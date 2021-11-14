@@ -1,21 +1,25 @@
 # The Plan
 
-- [ ] Vault Store
-  - [*] Unit test
-  - [] Initial balance
-- [ ] Forex request https://docs.openexchangerates.org/docs/convert
+- [x] Vault Store
+  - [x] Unit test
+  - [x] Initial balance
+- [x] Forex request https://docs.openexchangerates.org/docs/convert
+  - [x] fix query caching
 - [ ] Submit action (update wallets)
 - [ ] Currency Selector
 - [x] useDirection hook
 - [ ] Toggle Direction icon
-- [ ] Ratio component
+- [x] Ratio component
+
 - [ ] Success Message
 - [ ] RWD
 - [ ] Update README.md file
-- [ ] Add .env files
+- [x] Add .env files
+- [ ] Increase test coverage
+- [ ] Add i18n @exchanger/shared @exchanger/webapp
+
 - [ ] Add Jest @exchanger/shared
 - [ ] Add eslint @exchanger/shared @exchanger/webapp
-- [ ] Add i18n @exchanger/shared @exchanger/webapp
 - [ ] \<InputValue /> Emulate caret position
 
 - [ ] Add storybook @exchanger/shared

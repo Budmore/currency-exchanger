@@ -17,6 +17,7 @@ describe('walletStore', () => {
             expect(result.current.getWallet('USD')).toBeDefined();
         });
     });
+
     describe('Operation on a wallet', () => {
         it('should set/get wallet', () => {
             // GIVEN

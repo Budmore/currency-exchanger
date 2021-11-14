@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 const prodConfig = {
     mode: 'production',
@@ -59,6 +60,7 @@ module.exports = ({ env }) => {
             new HtmlWebpackPlugin({
                 template: path.resolve(__dirname, './src/index.html'),
             }),
+            new Dotenv(),
         ],
         stats: 'errors-only',
         ...(isDeveleopment ? devConfig : prodConfig),

@@ -1,10 +1,14 @@
 import { CustomThemeProvider } from '@exchanger/shared';
 import { render } from '@testing-library/react';
-import { ExchangeView } from './Exchange.view';
+import { Exchange } from './Exchange';
 
-describe('ExchangeView', () => {
+jest.mock('react-query', () => ({
+    useQuery: () => ({ isLoading: false, error: {}, data: [] }),
+}));
+
+describe('Exchange', () => {
     it('should render', () => {
-        const { getByTestId } = render(<ExchangeView />, {
+        const { getByTestId } = render(<Exchange />, {
             wrapper: CustomThemeProvider,
         });
 

@@ -1,25 +1,16 @@
 import { FormEvent, useState } from 'react';
-import { exchange } from '../../services/exchange/exchange.service';
-import { CurrencyISOType } from '../../utils/currency/currency.util';
-import { DirectionType } from '../../utils/direction/direction.util';
-import { ExchangeCurrency } from './ExchangeCurrency';
+import { useIntervalExchangeRatio } from '../../../queries/forex/useForex.query';
+import { exchange } from '../../../services/exchange/exchange.service';
+import { useTransactionStore } from '../../../stores/transaction/transaction.store';
+import { CurrencyISOType } from '../../../utils/currency/currency.util';
+import { ExchangeBox } from './ExchangeBox';
 
-interface ExchangeProps {
-    currencies: CurrencyISOType[];
-    ratio: number;
-    direction: DirectionType;
-    directionReversed: DirectionType;
-    toggleDirection: () => void;
-}
-
-export const ExchangeForm = ({
-    currencies,
-    ratio,
-    direction,
-    directionReversed,
-    toggleDirection,
-}: ExchangeProps) => {
+export const ExchangeForm = () => {
+    const { currencies, direction, directionReversed, toggleDirection } =
+        useTransactionStore();
+    const { data: ratio = 1 } = useIntervalExchangeRatio();
     const [currencyPrimary, currencySecondary] = currencies;
+
     const [values, setValues] = useState({
         [currencyPrimary]: 0,
         [currencySecondary]: 0,
@@ -56,13 +47,11 @@ export const ExchangeForm = ({
 
     const onSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if (isValid) {
-        }
     };
 
     return (
         <form onSubmit={onSubmit}>
-            <ExchangeCurrency
+            <ExchangeBox
                 currency={currencyPrimary}
                 direction={direction}
                 value={values[currencyPrimary]}
@@ -74,7 +63,7 @@ export const ExchangeForm = ({
                 Toggle
             </button>
 
-            <ExchangeCurrency
+            <ExchangeBox
                 currency={currencySecondary}
                 direction={directionReversed}
                 value={values[currencySecondary]}

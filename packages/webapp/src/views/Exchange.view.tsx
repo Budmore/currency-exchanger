@@ -4,7 +4,7 @@ import { Exchange } from '../modules/exchange/Exchange';
 export const ExchangeView = () => {
     return (
         <MainLayout>
-            <Exchange currencies={['GBP', 'USD']} />
+            <Exchange />
         </MainLayout>
     );
 };

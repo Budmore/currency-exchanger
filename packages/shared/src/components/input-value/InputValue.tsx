@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import { ChangeEvent, FC } from 'react';
+import styled, { css } from 'styled-components';
 
 interface InputValueProps {
     value?: number;
@@ -7,14 +7,13 @@ interface InputValueProps {
     onChange: (value: number) => void;
 }
 
-export const InputValue: React.FunctionComponent<InputValueProps> = ({
-    value = 0,
+export const InputValue: FC<InputValueProps> = ({
+    value,
     direction,
     onChange,
 }) => {
     const prefix = !!value && (direction === 'In' ? '+' : '-');
-
-    const changeHandler = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    const changeHandler = ({ target }: ChangeEvent<HTMLInputElement>) => {
         const value = +target.value;
         const nextValue = +value.toFixed(2);
         onChange(nextValue);
@@ -41,16 +40,28 @@ const InputValueRoot = styled.div`
     position: relative;
 `;
 
-const Value = styled.div`
+const fontStyles = css`
     font-weight: 600;
     font-size: 24px;
     line-height: 32px;
+    text-align: right;
+`;
+
+const Value = styled.div`
+    ${fontStyles}
 `;
 
 const InputHidden = styled.input`
+    ${fontStyles}
     position: absolute;
     left: 0;
     top: 0;
+    height: 100%;
     width: 100%;
     opacity: 0;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+    }
 `;

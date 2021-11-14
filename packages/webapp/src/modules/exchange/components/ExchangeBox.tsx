@@ -1,13 +1,13 @@
 import { InputExchange } from '@exchanger/shared';
 import { useEffect } from 'react';
-import { useVaultStore } from '../../stores/vault/vault.store';
-import { CurrencyISOType } from '../../utils/currency/currency.util';
+import { useVaultStore } from '../../../stores/vault/vault.store';
+import { CurrencyISOType } from '../../../utils/currency/currency.util';
 import {
     DirectionType,
     willExceedBalance,
-} from '../../utils/direction/direction.util';
+} from '../../../utils/direction/direction.util';
 
-interface ExchangeCurrencyProps {
+interface ExchangeBoxProps {
     currency: CurrencyISOType;
     direction: DirectionType;
     value: number;
@@ -15,13 +15,13 @@ interface ExchangeCurrencyProps {
     onError: (hasError: boolean) => void;
 }
 
-export const ExchangeCurrency = ({
+export const ExchangeBox = ({
     currency,
     direction,
     value,
     onChange,
     onError,
-}: ExchangeCurrencyProps) => {
+}: ExchangeBoxProps) => {
     const { getBalanceFormatted, getBalance } = useVaultStore(state => ({
         getBalanceFormatted: state.getBalanceFormatted,
         getBalance: state.getBalance,

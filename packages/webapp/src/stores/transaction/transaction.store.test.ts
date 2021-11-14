@@ -1,10 +1,10 @@
 import { act, renderHook } from '@testing-library/react-hooks';
-import { useDirection } from './useDirection';
+import { useTransactionStore } from './transaction.store';
 
 describe('useDirection()', () => {
     it('should have proper default values', () => {
         // GIVEN
-        const { result } = renderHook(() => useDirection());
+        const { result } = renderHook(() => useTransactionStore());
 
         // THEN
         expect(result.current.direction).toEqual('Out');
@@ -14,7 +14,7 @@ describe('useDirection()', () => {
 
     it('should toggle values', () => {
         // GIVEN
-        const { result } = renderHook(() => useDirection());
+        const { result } = renderHook(() => useTransactionStore());
 
         // WHEN
         act(() => {

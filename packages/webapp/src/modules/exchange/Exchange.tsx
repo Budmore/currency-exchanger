@@ -1,16 +1,18 @@
-import { useDirection } from '../../hooks/use-direction/useDirection';
-import { CurrencyISOType } from '../../utils/currency/currency.util';
-import { ExchangeForm } from './ExchangeForm';
+import shallow from 'zustand/shallow';
+import { useTransactionStore } from '../../stores/transaction/transaction.store';
+import { ExchangeForm } from './components/ExchangeForm';
+import { Ratio } from './components/ExchangeRatio';
 
-interface ExchangeProps {
-    currencies: CurrencyISOType[];
-}
-
-export const Exchange = ({ currencies }: ExchangeProps) => {
-    const [currencyPrimary] = currencies;
-    const { direction, directionReversed, isDirectionOut, toggleDirection } =
-        useDirection();
-    const ratio = 1.3971;
+export const Exchange = () => {
+    const { isDirectionOut, currencyPrimary, directionCurrencies } =
+        useTransactionStore(
+            state => ({
+                isDirectionOut: state.isDirectionOut,
+                currencyPrimary: state.currencies[0],
+                directionCurrencies: state.directionCurrencies,
+            }),
+            shallow
+        );
 
     return (
         <div>
@@ -18,15 +20,8 @@ export const Exchange = ({ currencies }: ExchangeProps) => {
                 {isDirectionOut ? 'Sell' : 'Buy'} {currencyPrimary}
             </h1>
 
-            <p>Ratio: {ratio}</p>
-
-            <ExchangeForm
-                currencies={currencies}
-                ratio={ratio}
-                direction={direction}
-                directionReversed={directionReversed}
-                toggleDirection={toggleDirection}
-            />
+            <Ratio currencies={directionCurrencies} />
+            <ExchangeForm />
         </div>
     );
 };

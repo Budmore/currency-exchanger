@@ -2,9 +2,14 @@
   "name": "@exchanger/root",
   "author": "Jakub Mach <j.mach@budmore.pl>",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/dotenv-webpack"
+    ]
+  },
   "scripts": {
     "start": "lerna run start --parallel",
     "test": "lerna run test --parallel",
