@@ -9,11 +9,15 @@ interface Vault {
 
 const mockResponse: Vault = {
     data: [
-        { currency: 'GBP', balance: 1000 },
-        { currency: 'USD', balance: 100 },
+        { currency: 'GBP', balance: 3396.42 },
+        { currency: 'USD', balance: 0.13 },
     ],
 };
 
 export const fetchVault = async () => {
     return Promise.resolve(mockResponse);
+};
+
+export const setVault = async () => {
+    return Promise.resolve();
 };

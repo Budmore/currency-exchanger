@@ -1,6 +1,6 @@
 import { CustomThemeProvider } from '@exchanger/shared';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import './index.css';
+import { SessionInit } from './modules/session/SessionInit';
 import { ExchangeView } from './views/Exchange.view';
 
 const queryClient = new QueryClient({
@@ -15,6 +15,7 @@ const queryClient = new QueryClient({
 export const App = () => (
     <QueryClientProvider client={queryClient}>
         <CustomThemeProvider>
+            <SessionInit />
             <ExchangeView />
         </CustomThemeProvider>
     </QueryClientProvider>

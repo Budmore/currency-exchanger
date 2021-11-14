@@ -18,9 +18,9 @@ export function reverseDirection(direction?: DirectionType) {
 export const willExceedBalance = ({
     direction,
     value,
-    balance,
+    balance = 0,
 }: {
     direction: DirectionType;
     value: number;
-    balance: number;
+    balance?: number;
 }) => direction === Direction.Out && balance - value < 0;

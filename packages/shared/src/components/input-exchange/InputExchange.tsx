@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { InputValue } from '../input-value/InputValue';
 
 interface InputExchangeProps {
-    balance: string;
+    balance?: string;
     value?: number;
     currency: string;
     direction: 'In' | 'Out';
