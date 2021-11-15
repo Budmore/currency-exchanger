@@ -16,7 +16,7 @@ export const useIntervalExchangeRatio = () => {
         {
             refetchInterval: REFETCH_INTERVAL_MS,
             staleTime: REFETCH_INTERVAL_MS,
-            enabled: from === to,
+            enabled: from !== to,
         }
     );
 };

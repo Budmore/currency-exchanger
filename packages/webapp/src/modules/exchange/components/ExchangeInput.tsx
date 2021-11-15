@@ -75,6 +75,7 @@ const HelpText = styled.span`
     font-weight: 500;
     line-height: 1.2;
     color: ${props => props.theme.colors.default.secondaryText};
+    white-space: nowrap;
 `;
 
 const Helper = styled(HelpText)`

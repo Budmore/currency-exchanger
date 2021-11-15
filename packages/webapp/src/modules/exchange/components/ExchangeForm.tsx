@@ -143,6 +143,7 @@ const Form = styled.form`
 
     @media only screen and (min-width: 768px) {
         grid-row-gap: 32px;
+        grid-template-columns: 1fr 50px 1fr;
         grid-template-areas:
             'primary toggle secondary'
             'submit submit submit';

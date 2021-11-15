@@ -1,8 +1,10 @@
-# Exchnager - Currency exchange
+# Exchanger - Currency exchange
+
+![App preview](./public/app-preview.gif)
 
 ## Technology stack
 
-- [Lerna]https://github.com/lerna/lerna) Monorepo manager
+- [Lerna](https://github.com/lerna/lerna) Monorepo manager
 - [React](https://reactnative.dev/) JavaScript framework for writing mobile apps for iOS and Android
 - [React-query](https://react-query.tanstack.com/) Server state.
 - [Styled components](https://styled-components.com/) CSS styling react components
@@ -15,14 +17,17 @@
 
 ## Prerequisites
 
-- [`nvm`](https://github.com/creationix/nvm#installation) Node Version Manager
-- Create file `./packages/webapp/.env` and fill [`FOREX_API_KEY`](https://polygon.io)
-- `yarn` Yarn Workspaces managing dependencies from multiple package. json
+- [`nvm`](https://github.com/creationix/nvm#installation)
+- [`yarn`](https://yarnpkg.com/en/docs/install)
+- `cp ./packages/webapp/.env.exmaple ./packages/webapp/.env` Create local .env file
+- [Get your FOREX_API_KEY](https://polygon.io) and paste it to the `.env`
 
-## Install dependencies
+## Start development
 
-- `nvm install` / `nvm use`
-- `yarn` / `yarn install`
+- `nvm use`
+- `yarn`
+- `yarn start`
+- Open a browser on [http://localhost:8080](http://localhost:8080)
 
 ---
 
