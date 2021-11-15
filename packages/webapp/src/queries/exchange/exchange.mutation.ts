@@ -16,8 +16,10 @@ export const useExchangeMutation = () => {
     return useMutation<SuccessResponse, Error, RequestVariables>(setExchange, {
         onSuccess: ({ values }) => {
             const [from, to] = currenciesInDirection;
-            add(to, values[to]);
-            subtract(from, values[from]);
+            const [fromValue, toValue] = values;
+
+            subtract(from, fromValue);
+            add(to, toValue);
         },
     });
 };

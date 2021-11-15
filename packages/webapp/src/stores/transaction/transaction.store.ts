@@ -8,11 +8,13 @@ import {
 } from '../../utils/direction/direction.util';
 
 interface TransactionStore {
-    currencies: [CurrencyISOType, CurrencyISOType];
+    currencies: CurrencyISOType[];
     direction: DirectionType;
     directionReversed: DirectionType;
     getCurrenciesInDirection(): CurrencyISOType[];
     getDirectionLabel(): string;
+    getDirectionLabel(): string;
+    setCurrencies(prev: string, next: string): void;
     toggleDirection(): void;
 }
 
@@ -31,6 +33,16 @@ export const transactionStore = createVanilla<TransactionStore>((set, get) => ({
     getDirectionLabel: () => {
         const { direction } = get();
         return direction === Direction.Out ? 'Sell' : 'Buy';
+    },
+    setCurrencies: (prev, next) => {
+        const { currencies } = get();
+
+        const index = currencies.findIndex(currency => currency === prev);
+        currencies[index] = next as CurrencyISOType;
+
+        set({
+            currencies,
+        });
     },
     toggleDirection: () => {
         set(prevState => ({

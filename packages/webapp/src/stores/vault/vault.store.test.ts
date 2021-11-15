@@ -26,12 +26,12 @@ describe('walletStore', () => {
             // WHEN
             act(() => {
                 result.current.createWallet('USD');
-                result.current.createWallet('PLN');
+                result.current.createWallet('KRW');
             });
 
             // THEN
             expect(result.current.getWallet('USD')).toBeDefined();
-            expect(result.current.getWallet('PLN')).toBeDefined();
+            expect(result.current.getWallet('KRW')).toBeDefined();
         });
 
         it('should set/get balance', () => {

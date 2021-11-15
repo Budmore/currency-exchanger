@@ -16,7 +16,7 @@
 ## Prerequisites
 
 - [`nvm`](https://github.com/creationix/nvm#installation) Node Version Manager
-- Create `./packages/webapp/.env` file and fill [`FOREX_API_KEY`](https://polygon.io)
+- Create file `./packages/webapp/.env` and fill [`FOREX_API_KEY`](https://polygon.io)
 - `yarn` Yarn Workspaces managing dependencies from multiple package. json
 
 ## Install dependencies
@@ -30,8 +30,9 @@
 
 **@exchanger/root**
 
-- [ ] Fix: Absolute paths doesn't work
 - [ ] Add i18n
+- [ ] Fix: Absolute paths doesn't work
+- [ ] Fix: Jest config (issue with .svg files)
 
 **@exchanger/webapp:**
 
@@ -41,17 +42,19 @@
 - [x] Forex request https://docs.openexchangerates.org/docs/convert
   - [x] fix query caching
 - [x] Submit action (update wallets)
-- [ ] Currency Selector
+- [x] Currency Selector
 - [x] useDirection hook
 - [x] Toggle Direction icon
-- [ ] Fix: recalculate value on the ratio change
+- [x] Fix: recalculate value on the ratio change
 - [x] Ratio component
 - [ ] Success Message
 - [x] RWD
 - [x] Update README.md file
 - [x] Add .env files
 - [ ] \<InputValue /> Emulate caret position
-- [ ] Fix: Jest config (issue with .svg files)
+- [ ] Refactor and Simplifying \<Exchange /> components
+- [ ] Create a new wallet on currency selection
+- [ ] Increase test coverage
 
 **@exchanger/shared:**
 

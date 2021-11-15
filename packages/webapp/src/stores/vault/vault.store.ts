@@ -42,7 +42,8 @@ export const vaultStore = createVanilla<VaultStore>((set, get) => ({
     },
 
     getBalance: currency => {
-        const wallet = get().wallets[currency];
+        const { wallets } = get();
+        const wallet = wallets[currency];
 
         if (wallet) {
             return wallet.getBalance();
@@ -59,9 +60,8 @@ export const vaultStore = createVanilla<VaultStore>((set, get) => ({
     },
 
     createWallet: (currency, balance = 0) => {
-        const { wallets, getWallet } = get();
-
-        const wallet = getWallet(currency);
+        const { wallets } = get();
+        const wallet = wallets[currency];
 
         if (!wallet) {
             set(state => ({

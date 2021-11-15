@@ -3,7 +3,7 @@ const DEFAULT_USER_LOCALE = 'en-US';
 export enum CurrencyISO {
     EUR = 'EUR',
     GBP = 'GBP',
-    PLN = 'PLN',
+    KRW = 'KRW',
     USD = 'USD',
 }
 export type CurrencyISOType = keyof typeof CurrencyISO;

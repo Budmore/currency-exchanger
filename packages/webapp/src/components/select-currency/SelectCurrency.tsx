@@ -1,21 +1,25 @@
 import { ChevronDown, Dropdown } from '@exchanger/shared';
 import { useState } from 'react';
 import styled from 'styled-components';
-import {
-    CurrencyISO,
-    CurrencyISOType,
-} from '../../utils/currency/currency.util';
+import { useTransactionStore } from '../../stores/transaction/transaction.store';
+import { CurrencyISO } from '../../utils/currency/currency.util';
 
 interface SelectCurrencyProps {
-    selectedCurrency?: CurrencyISOType;
+    selectedCurrency: string;
 }
 
 export const SelectCurrency = ({ selectedCurrency }: SelectCurrencyProps) => {
     const [isOpen, setIsOpen] = useState(false);
+    const setCurrencies = useTransactionStore(state => state.setCurrencies);
     const items = Object.keys(CurrencyISO).map(key => ({
         id: key,
         label: key,
     }));
+
+    const onSelect = (nextCurrency: string) => {
+        setCurrencies(selectedCurrency, nextCurrency);
+        setIsOpen(false);
+    };
 
     return (
         <SelectCurrencyRoot>
@@ -33,7 +37,7 @@ export const SelectCurrency = ({ selectedCurrency }: SelectCurrencyProps) => {
                     <ItemButton
                         key={item.id}
                         isSelected={item.id === selectedCurrency}
-                        onClick={() => setIsOpen(false)}
+                        onClick={() => onSelect(item.id)}
                     >
                         {item.label}
                     </ItemButton>

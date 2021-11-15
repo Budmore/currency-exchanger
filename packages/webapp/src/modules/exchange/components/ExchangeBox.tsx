@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
-import { ExchangeInput } from './ExchangeInput';
 import { useVaultStore } from '../../../stores/vault/vault.store';
 import { CurrencyISOType } from '../../../utils/currency/currency.util';
 import {
     DirectionType,
     willExceedBalance,
 } from '../../../utils/direction/direction.util';
+import { ExchangeInput } from './ExchangeInput';
 
 interface ExchangeBoxProps {
     currency: CurrencyISOType;

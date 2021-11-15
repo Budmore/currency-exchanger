@@ -1,5 +1,5 @@
 import { ArrowUp, Button } from '@exchanger/shared';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useExchangeMutation } from '../../../queries/exchange/exchange.mutation';
 import { useIntervalExchangeRatio } from '../../../queries/forex/useForex.query';
@@ -21,9 +21,9 @@ export const ExchangeForm = () => {
     const [currencyPrimary, currencySecondary] = currencies;
     const { mutateAsync, isLoading } = useExchangeMutation();
 
-    const [values, setValues] = useState({
-        [currencyPrimary]: 0,
-        [currencySecondary]: 0,
+    const [values, setValues] = useState<{ [x: string]: number }>({
+        primary: 0,
+        secondary: 0,
     });
 
     const [errors, setErrors] = useState({
@@ -31,20 +31,43 @@ export const ExchangeForm = () => {
         [currencySecondary]: false,
     });
 
-    // useEffect(() => {
-    //     const [, to] = getCurrenciesInDirection();
-    //     const value = values[to];
-    //     const valueExchanged = exchange(value, ratio);
+    const initForm = () => {
+        setValues({
+            primary: 0,
+            secondary: 0,
+        });
+    };
 
-    //     setValues(prevState => ({
-    //         ...prevState,
-    //         [to]: valueExchanged,
-    //     }));
-    // }, [ratio, direction]);
+    useEffect(() => {
+        if (direction === Direction.Out) {
+            setValues(prevState => {
+                if (!prevState.primary) {
+                    return prevState;
+                }
+
+                return {
+                    ...prevState,
+                    secondary: exchange(prevState.primary, ratio),
+                };
+            });
+        } else {
+            setValues(prevState => {
+                if (!prevState.secondary) {
+                    return prevState;
+                }
+
+                return {
+                    ...prevState,
+                    primary: exchange(prevState.secondary, ratio),
+                };
+            });
+        }
+    }, [direction, ratio]);
 
     const hasErrors = Object.values(errors).some(e => e);
     const hasValues = Object.values(values).every(e => e);
-    const isValid = hasValues && !hasErrors;
+    const hasSameCurrencies = currencyPrimary === currencySecondary;
+    const isValid = hasValues && !hasErrors && !hasSameCurrencies;
     const label = `${getDirectionLabel()} ${currencyPrimary} for ${currencySecondary}`;
 
     const onError = (currency: CurrencyISOType) => (hasError: boolean) => {
@@ -54,11 +77,8 @@ export const ExchangeForm = () => {
         }));
     };
 
-    const onChange = (currency: CurrencyISOType) => (value: number) => {
-        const [otherCurrency] = currencies.filter(
-            _currency => _currency !== currency
-        );
-
+    const onChange = (currency: 'primary' | 'secondary') => (value: number) => {
+        const otherCurrency = currency === 'primary' ? 'secondary' : 'primary';
         const valueExchanged = exchange(value, ratio);
 
         setValues({
@@ -69,7 +89,11 @@ export const ExchangeForm = () => {
 
     const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        await mutateAsync({ values });
+        const _values = [values.primary, values.secondary];
+        const valuesInOrder =
+            direction === Direction.Out ? _values : _values.reverse();
+        await mutateAsync({ values: valuesInOrder });
+        initForm();
     };
 
     return (
@@ -78,8 +102,8 @@ export const ExchangeForm = () => {
                 <ExchangeBox
                     currency={currencyPrimary}
                     direction={direction}
-                    value={values[currencyPrimary]}
-                    onChange={onChange(currencyPrimary)}
+                    value={values.primary}
+                    onChange={onChange('primary')}
                     onError={onError(currencyPrimary)}
                 />
             </GridItem>
@@ -98,8 +122,8 @@ export const ExchangeForm = () => {
                 <ExchangeBox
                     currency={currencySecondary}
                     direction={directionReversed}
-                    value={values[currencySecondary]}
-                    onChange={onChange(currencySecondary)}
+                    value={values.secondary}
+                    onChange={onChange('secondary')}
                     onError={onError(currencySecondary)}
                 />
             </GridItem>

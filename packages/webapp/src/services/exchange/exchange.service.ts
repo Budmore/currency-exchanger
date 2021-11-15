@@ -1,5 +1,3 @@
-import { CurrencyISOType } from '../../utils/currency/currency.util';
-
 export function exchange(value: number, factor: number) {
     return +(value * factor).toFixed(2);
 }
@@ -18,9 +16,9 @@ export async function setExchange(
 }
 
 export interface SuccessResponse {
-    values: Record<CurrencyISOType, number>;
+    values: number[];
 }
 
 export interface RequestVariables {
-    [x: string]: number;
+    values: number[];
 }
