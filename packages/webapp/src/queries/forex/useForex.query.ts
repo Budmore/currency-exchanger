@@ -5,10 +5,9 @@ import { useTransactionStore } from '../../stores/transaction/transaction.store'
 const REFETCH_INTERVAL_MS = 10000;
 
 export const useIntervalExchangeRatio = () => {
-    const directionCurrencies = useTransactionStore(
-        state => state.directionCurrencies
+    const [from, to] = useTransactionStore(state =>
+        state.getCurrenciesInDirection()
     );
-    const [from, to] = directionCurrencies;
     const forexTicker = `C:${from}${to}`;
 
     return useQuery<number, Error>(

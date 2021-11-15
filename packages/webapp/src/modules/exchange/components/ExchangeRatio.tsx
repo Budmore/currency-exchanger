@@ -1,19 +1,14 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { useIntervalExchangeRatio } from '../../../queries/forex/useForex.query';
-import {
-    CurrencyISOType,
-    formatPriceWithCurrency,
-} from '../../../utils/currency/currency.util';
+import { useTransactionStore } from '../../../stores/transaction/transaction.store';
+import { formatPriceWithCurrency } from '../../../utils/currency/currency.util';
 
-interface RatioProps {
-    currencies: CurrencyISOType[];
-}
-
-export const Ratio: React.FunctionComponent<RatioProps> = ({
-    currencies: [from, to],
-}) => {
+export const Ratio = () => {
     const { data: ratio, isLoading, error } = useIntervalExchangeRatio();
+    const [from, to] = useTransactionStore(state =>
+        state.getCurrenciesInDirection()
+    );
     const label = useMemo(() => {
         const fromCurrency = formatPriceWithCurrency(1, from, 0);
         const toCurrency = !!ratio && formatPriceWithCurrency(ratio, to, 4);

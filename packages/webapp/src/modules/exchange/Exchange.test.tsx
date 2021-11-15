@@ -4,6 +4,7 @@ import { Exchange } from './Exchange';
 
 jest.mock('react-query', () => ({
     useQuery: () => ({ isLoading: false, error: {}, data: [] }),
+    useMutation: () => ({ isLoading: false, error: {}, data: [] }),
 }));
 
 describe('Exchange', () => {

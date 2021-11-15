@@ -18,6 +18,8 @@ declare module 'styled-components' {
         primaryText?: string;
         secondaryText?: string;
         bgColor?: string;
+        bgColorDark?: string;
+        bgColorDarker?: string;
         accent?: string;
     }
 

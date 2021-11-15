@@ -1,4 +1,6 @@
+import { Button } from '@exchanger/shared';
 import { FormEvent, useState } from 'react';
+import { useExchangeMutation } from '../../../queries/exchange/exchange.mutation';
 import { useIntervalExchangeRatio } from '../../../queries/forex/useForex.query';
 import { exchange } from '../../../services/exchange/exchange.service';
 import { useTransactionStore } from '../../../stores/transaction/transaction.store';
@@ -6,10 +8,16 @@ import { CurrencyISOType } from '../../../utils/currency/currency.util';
 import { ExchangeBox } from './ExchangeBox';
 
 export const ExchangeForm = () => {
-    const { currencies, direction, directionReversed, toggleDirection } =
-        useTransactionStore();
-    const { data: ratio = 1 } = useIntervalExchangeRatio();
+    const {
+        currencies,
+        direction,
+        directionReversed,
+        toggleDirection,
+        getDirectionLabel,
+    } = useTransactionStore();
+    const { data: ratio = 0 } = useIntervalExchangeRatio();
     const [currencyPrimary, currencySecondary] = currencies;
+    const { mutateAsync, isLoading } = useExchangeMutation();
 
     const [values, setValues] = useState({
         [currencyPrimary]: 0,
@@ -21,9 +29,21 @@ export const ExchangeForm = () => {
         [currencySecondary]: false,
     });
 
+    // useEffect(() => {
+    //     const [, to] = getCurrenciesInDirection();
+    //     const value = values[to];
+    //     const valueExchanged = exchange(value, ratio);
+
+    //     setValues(prevState => ({
+    //         ...prevState,
+    //         [to]: valueExchanged,
+    //     }));
+    // }, [ratio, direction]);
+
     const hasErrors = Object.values(errors).some(e => e);
     const hasValues = Object.values(values).every(e => e);
     const isValid = hasValues && !hasErrors;
+    const label = `${getDirectionLabel()} ${currencyPrimary} for ${currencySecondary}`;
 
     const onError = (currency: CurrencyISOType) => (hasError: boolean) => {
         setErrors(prevState => ({
@@ -45,8 +65,9 @@ export const ExchangeForm = () => {
         });
     };
 
-    const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        await mutateAsync({ values });
     };
 
     return (
@@ -71,7 +92,7 @@ export const ExchangeForm = () => {
                 onError={onError(currencySecondary)}
             />
 
-            <button disabled={!isValid}>Exchange</button>
+            <Button disabled={!isValid || isLoading}>{label}</Button>
         </form>
     );
 };

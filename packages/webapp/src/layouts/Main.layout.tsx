@@ -5,11 +5,15 @@ import styled from 'styled-components';
 export const MainLayout: FC = ({ children }) => (
     <LayoutRoot>
         <Header>
-            <a href="/" aria-label="Go to the main page">
-                <Logo />
-            </a>
+            <Content>
+                <a href="/" aria-label="Go to the main page">
+                    <Logo />
+                </a>
+            </Content>
         </Header>
-        <LayoutContent>{children}</LayoutContent>
+        <LayoutContent>
+            <Content>{children}</Content>
+        </LayoutContent>
     </LayoutRoot>
 );
 
@@ -22,5 +26,8 @@ const LayoutRoot = styled.div`
 const LayoutContent = styled.div`
     width: 100%;
     max-width: ${props => props.theme.layout.maxWidth};
-    padding: 0 16px;
+`;
+
+const Content = styled.div`
+    padding: 0 8px;
 `;

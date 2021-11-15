@@ -40,7 +40,7 @@
   - [x] Initial balance
 - [x] Forex request https://docs.openexchangerates.org/docs/convert
   - [x] fix query caching
-- [.] Submit action (update wallets)
+- [x] Submit action (update wallets)
 - [ ] Currency Selector
 - [x] useDirection hook
 - [ ] Toggle Direction icon

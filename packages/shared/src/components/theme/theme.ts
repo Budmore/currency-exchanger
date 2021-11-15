@@ -5,6 +5,8 @@ const colors = {
     black: '#000',
     grey: '#888',
     blue: '#0666eb',
+    blueDark: '#055bd3',
+    blueDarker: '#0147aa',
     purple: '#5e2d9c',
 
     green: '#31ed83',
@@ -18,6 +20,8 @@ export const defaultTheme: DefaultTheme = {
             primaryText: colors.white,
             secondaryText: colors.white,
             bgColor: colors.blue,
+            bgColorDark: colors.blueDark,
+            bgColorDarker: colors.blueDarker,
             accent: colors.purple,
         },
 

@@ -1,26 +1,12 @@
-import shallow from 'zustand/shallow';
-import { useTransactionStore } from '../../stores/transaction/transaction.store';
 import { ExchangeForm } from './components/ExchangeForm';
 import { Ratio } from './components/ExchangeRatio';
+import { ExchangeTitle } from './components/ExchangeTitle';
 
 export const Exchange = () => {
-    const { isDirectionOut, currencyPrimary, directionCurrencies } =
-        useTransactionStore(
-            state => ({
-                isDirectionOut: state.isDirectionOut,
-                currencyPrimary: state.currencies[0],
-                directionCurrencies: state.directionCurrencies,
-            }),
-            shallow
-        );
-
     return (
         <div>
-            <h1 data-testid="title">
-                {isDirectionOut ? 'Sell' : 'Buy'} {currencyPrimary}
-            </h1>
-
-            <Ratio currencies={directionCurrencies} />
+            <ExchangeTitle />
+            <Ratio />
             <ExchangeForm />
         </div>
     );

@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 import { useTransactionStore } from './transaction.store';
 
-describe('useDirection()', () => {
+describe('useTransactionStore()', () => {
     it('should have proper default values', () => {
         // GIVEN
         const { result } = renderHook(() => useTransactionStore());
@@ -9,7 +9,6 @@ describe('useDirection()', () => {
         // THEN
         expect(result.current.direction).toEqual('Out');
         expect(result.current.directionReversed).toEqual('In');
-        expect(result.current.isDirectionOut).toEqual(true);
     });
 
     it('should toggle values', () => {
@@ -24,6 +23,19 @@ describe('useDirection()', () => {
         // THEN
         expect(result.current.direction).toEqual('In');
         expect(result.current.directionReversed).toEqual('Out');
-        expect(result.current.isDirectionOut).toEqual(false);
+    });
+
+    it('should have proper default values', () => {
+        // GIVEN
+        const { result } = renderHook(() => useTransactionStore());
+        const { getCurrenciesInDirection } = result.current;
+        // WHEN
+        act(() => {
+            expect(getCurrenciesInDirection()).toEqual(['GBP', 'USD']);
+            result.current.toggleDirection();
+        });
+
+        // THEN
+        expect(getCurrenciesInDirection()).toEqual(['USD', 'GBP']);
     });
 });
