@@ -30,6 +30,7 @@ export const defaultTheme: DefaultTheme = {
             secondaryText: colors.grey,
             bgColor: colors.white,
             accent: colors.blue,
+            accentHover: colors.blueDarker,
         },
     },
 
@@ -41,13 +42,10 @@ export const defaultTheme: DefaultTheme = {
 
     zIndexes: {
         navigationBar: 100,
+        dropdown: 200,
     },
 
     layout: {
         maxWidth: '980px',
-    },
-
-    animation: {
-        cubicBezier: 'cubic-bezier(0, 0, 0.2, 1)',
     },
 };

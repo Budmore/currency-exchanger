@@ -3,7 +3,7 @@ import styled, { CSSObject } from 'styled-components';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     color?: 'primary' | 'secondary';
-    variant?: 'solid' | 'outline';
+    variant?: 'solid' | 'outline' | 'icon';
 }
 
 export const Button: FC<ButtonProps> = ({
@@ -40,9 +40,27 @@ const ButtonRoot = styled.button<ButtonProps>(
             };
         }
 
+        if (color === 'secondary') {
+            const { bgColor, accent, accentHover } = theme.colors.default;
+
+            themeStyles = {
+                color: accent,
+                fill: accent,
+                backgroundColor: bgColor,
+
+                '&:hover': {
+                    color: accentHover,
+                    fill: accentHover,
+                },
+            };
+        }
+
         let fontFamily = {
             fontSize: '18px',
             fontWeight: 600,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
         };
 
         return {
@@ -53,7 +71,7 @@ const ButtonRoot = styled.button<ButtonProps>(
             border: 0,
             height: '50px',
             borderRadius: '4px',
-            transition: 'background-color 100ms ease-in',
+            transition: 'background-color 100ms ease-in, color 100ms ease-in',
 
             ...(disabled && { opacity: 0.4, pointerEvents: 'none' }),
         };

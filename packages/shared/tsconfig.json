@@ -8,6 +8,6 @@
     "allowSyntheticDefaultImports": true,
     "jsx": "react-jsx"
   },
-  "include": ["src"],
+  "include": ["src", "../webapp/src/components/input-exchange"],
   "exclude": ["node_modules", "lib"]
 }

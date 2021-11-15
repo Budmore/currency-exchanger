@@ -2,7 +2,6 @@ import 'styled-components';
 
 declare module 'styled-components' {
     export interface DefaultTheme {
-        animation: ObjectType;
         colors: {
             brand: ColorSet;
             default: ColorSet;
@@ -21,6 +20,7 @@ declare module 'styled-components' {
         bgColorDark?: string;
         bgColorDarker?: string;
         accent?: string;
+        accentHover?: string;
     }
 
     interface Status {

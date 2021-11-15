@@ -1,4 +1,5 @@
-import React, { useMemo } from 'react';
+import { Chart } from '@exchanger/shared';
+import { useMemo } from 'react';
 import styled from 'styled-components';
 import { useIntervalExchangeRatio } from '../../../queries/forex/useForex.query';
 import { useTransactionStore } from '../../../stores/transaction/transaction.store';
@@ -17,7 +18,11 @@ export const Ratio = () => {
 
     return (
         <RatioRoot>
-            {!!ratio && <Label>{label}</Label>}
+            {!!ratio && (
+                <Label>
+                    <Chart /> {label}
+                </Label>
+            )}
             {isLoading && <span>Loading</span>}
             {error && <ErrorText>{error.message}</ErrorText>}
         </RatioRoot>
@@ -30,8 +35,12 @@ const RatioRoot = styled.div`
 
 const Label = styled.span`
     color: ${props => props.theme.colors.brand.bgColor};
+    fill: ${props => props.theme.colors.brand.bgColor};
     font-weight: 600;
     margin-right: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 `;
 const ErrorText = styled.span`
     color: ${props => props.theme.status.critical};

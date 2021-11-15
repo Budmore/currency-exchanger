@@ -1,5 +1,5 @@
-import { InputExchange } from '@exchanger/shared';
 import { useEffect } from 'react';
+import { ExchangeInput } from './ExchangeInput';
 import { useVaultStore } from '../../../stores/vault/vault.store';
 import { CurrencyISOType } from '../../../utils/currency/currency.util';
 import {
@@ -40,7 +40,7 @@ export const ExchangeBox = ({
     }, [hasError]);
 
     return (
-        <InputExchange
+        <ExchangeInput
             currency={currency}
             direction={direction}
             value={value}

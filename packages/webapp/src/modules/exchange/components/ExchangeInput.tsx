@@ -1,8 +1,9 @@
+import { InputValue } from '@exchanger/shared';
 import React from 'react';
 import styled from 'styled-components';
-import { InputValue } from '../input-value/InputValue';
+import { SelectCurrency } from '../../../components/select-currency/SelectCurrency';
 
-interface InputExchangeProps {
+interface ExchangeInputProps {
     balance?: string;
     value?: number;
     currency: string;
@@ -11,7 +12,7 @@ interface InputExchangeProps {
     onChange: (value: number) => void;
 }
 
-export const InputExchange: React.FunctionComponent<InputExchangeProps> = ({
+export const ExchangeInput: React.FunctionComponent<ExchangeInputProps> = ({
     balance,
     value,
     currency,
@@ -20,10 +21,10 @@ export const InputExchange: React.FunctionComponent<InputExchangeProps> = ({
     onChange,
 }) => {
     return (
-        <InputExchangeRoot>
-            <InputExchangeGrid>
+        <ExchangeInputRoot>
+            <ExchangeInputGrid>
                 <Currency>
-                    <CurrencySelector>{currency}</CurrencySelector>
+                    <SelectCurrency selectedCurrency={currency} />
                 </Currency>
                 <Balance>
                     <HelpText>Balance: {balance}</HelpText>
@@ -38,18 +39,18 @@ export const InputExchange: React.FunctionComponent<InputExchangeProps> = ({
                 <Helper>
                     {hasError && <ErrorText>exceeds balance</ErrorText>}
                 </Helper>
-            </InputExchangeGrid>
-        </InputExchangeRoot>
+            </ExchangeInputGrid>
+        </ExchangeInputRoot>
     );
 };
 
-const InputExchangeRoot = styled.div(({ theme }) => ({
+const ExchangeInputRoot = styled.div(({ theme }) => ({
     padding: '10px',
     borderRadius: '4px',
     backgroundColor: theme.colors.default.bgColor,
 }));
 
-const InputExchangeGrid = styled.div`
+const ExchangeInputGrid = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
@@ -83,10 +84,4 @@ const Helper = styled(HelpText)`
 
 const ErrorText = styled(HelpText)`
     color: ${props => props.theme.status.critical};
-`;
-
-const CurrencySelector = styled.div`
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 32px;
 `;

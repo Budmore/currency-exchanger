@@ -30,7 +30,7 @@
 
 **@exchanger/root**
 
-- [ ] Fix: absolute paths doesn't work
+- [ ] Fix: Absolute paths doesn't work
 - [ ] Add i18n
 
 **@exchanger/webapp:**
@@ -43,13 +43,15 @@
 - [x] Submit action (update wallets)
 - [ ] Currency Selector
 - [x] useDirection hook
-- [ ] Toggle Direction icon
+- [x] Toggle Direction icon
+- [ ] Fix: recalculate value on the ratio change
 - [x] Ratio component
 - [ ] Success Message
-- [ ] RWD
+- [x] RWD
 - [x] Update README.md file
 - [x] Add .env files
 - [ ] \<InputValue /> Emulate caret position
+- [ ] Fix: Jest config (issue with .svg files)
 
 **@exchanger/shared:**
 

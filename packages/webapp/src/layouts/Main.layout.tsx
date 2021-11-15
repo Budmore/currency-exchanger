@@ -6,9 +6,9 @@ export const MainLayout: FC = ({ children }) => (
     <LayoutRoot>
         <Header>
             <Content>
-                <a href="/" aria-label="Go to the main page">
+                <Link href="/" aria-label="Go to the main page">
                     <Logo />
-                </a>
+                </Link>
             </Content>
         </Header>
         <LayoutContent>
@@ -29,5 +29,9 @@ const LayoutContent = styled.div`
 `;
 
 const Content = styled.div`
-    padding: 0 8px;
+    padding: 0 16px;
+`;
+
+const Link = styled.a`
+    text-decoration: none;
 `;
